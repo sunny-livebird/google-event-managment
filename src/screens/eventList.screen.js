@@ -18,7 +18,10 @@ const EventListScreen = () => {
 
   const INITIAL_TIME = {hour: 9, minutes: 0};
   const today = new Date();
-
+  const getDate = (offset = 0) =>
+    CalendarUtils.getCalendarDateString(
+      new Date().setDate(today.getDate() + offset),
+    );
   const eventsList = useSelector(state => state.events);
 
   const [currentDate, setCurrentDate] = useState(today);
@@ -35,7 +38,10 @@ const EventListScreen = () => {
   };
 
   useEffect(() => {
+    console.log('eventsList', eventsList);
     let date = dateUtility.getDayInStringFormat(currentDate);
+    console.log('date', date);
+
     var dateCurrent = date;
     if (typeof dateCurrent === 'string') {
       dateCurrent = new Date(dateCurrent);
@@ -64,6 +70,7 @@ const EventListScreen = () => {
     let todayEvents = _.groupBy(arrTodaysEvent, e =>
       CalendarUtils.getCalendarDateString(date),
     );
+    console.log('todayEvents', todayEvents);
 
     setEventsByDate(todayEvents);
   }, [eventsList, currentDate]);
@@ -76,10 +83,7 @@ const EventListScreen = () => {
     },
 
     scrollToFirst: true,
-    unavailableHours: [
-      {start: 0, end: 6},
-      {start: 22, end: 24},
-    ],
+
     overlapEventsSpacing: 8,
     rightEdgeSpacing: 24,
   };

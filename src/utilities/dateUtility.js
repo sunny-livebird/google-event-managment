@@ -10,8 +10,11 @@ const getEventDate = date => {
   return year + '-' + month + '-' + day;
 };
 const getFormatString = (date, time) => {
-  var timeString = time.getHours() + ':' + ('0' + time.getMinutes()).slice(-2);
-  +':00';
+  var timeString =
+    ('0' + time.getHours()).slice(-2) +
+    ':' +
+    ('0' + time.getMinutes()).slice(-2) +
+    ':00';
   var year = date.getFullYear();
   var month = ('0' + (date.getMonth() + 1)).slice(-2);
   var day = ('0' + date.getDate()).slice(-2);
